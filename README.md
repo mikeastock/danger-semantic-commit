@@ -1,28 +1,35 @@
 # Danger::SemanticCommit
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/danger/semantic_commit`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+A Danger plugin that validates your commits to be semantic. Semantic commits
+idea comes from the Karma Runner project. More information can be found
+[here](http://karma-runner.github.io/1.0/dev/git-commit-msg.html)
 
 ## Installation
 
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'danger-semantic_commit'
+gem "danger-semantic-commit"
 ```
 
 And then execute:
 
     $ bundle
 
-Or install it yourself as:
-
-    $ gem install danger-semantic_commit
-
 ## Usage
 
-TODO: Write usage instructions here
+To use the default config simply add this line to your `Dangerfile`
+
+```
+semantic_config.validate
+```
+
+By default the plugin will fail any commits that don't pass the checks. To change
+this you can pass a config like so:
+
+```
+semantic_commit.validate warn: :all
+```
 
 ## Development
 
