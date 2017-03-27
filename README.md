@@ -1,5 +1,7 @@
 # Danger::SemanticCommit
 
+[![Build Status](https://travis-ci.org/mikeastock/danger-semantic-commit.svg?branch=master)](https://travis-ci.org/mikeastock/danger-semantic-commit)
+
 A Danger plugin that validates your commits to be semantic. Semantic commits
 idea comes from the Karma Runner project. More information can be found
 [here](http://karma-runner.github.io/1.0/dev/git-commit-msg.html)
