@@ -4,7 +4,7 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'danger/semantic_commit/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = "danger-semantic_commit"
+  spec.name          = "danger-semantic-commit"
   spec.version       = Danger::SemanticCommit::VERSION
   spec.authors       = ["Michael Stock"]
   spec.email         = ["mikeastock@gmail.com"]
