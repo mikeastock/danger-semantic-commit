@@ -33,6 +33,25 @@ module Danger
   # @tags commit linting
   #
   class DangerSemanticCommit < Plugin
+    # Validates the commits with whatever config the user passes.
+    #
+    # Passing in a hash which contain the following keys:
+    #
+    #  * `disable` - array of checks to skip
+    #  * `fail` - array of checks to fail on
+    #  * `warn` - array of checks to warn on
+    #
+    #  The current check types are:
+    #
+    #  * `scope`
+    #  * `length`
+    #
+    #  Note: you can pass :all instead of an array to target all checks.
+    #
+    # @param [Hash] config
+    #
+    # @return [void]
+    #
     def validate(config = {})
       self.config = config
 
