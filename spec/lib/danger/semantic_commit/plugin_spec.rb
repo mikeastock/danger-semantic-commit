@@ -17,7 +17,10 @@ RSpec.describe Danger::DangerSemanticCommit do
         plugin.validate
 
         expect(plugin.status_report[:errors]).to eq(
-          [["Commit subject is too short", commit.sha]]
+          [
+            ["Commit subject is too short", commit.sha],
+            ["Commit is missing a scope", commit.sha],
+          ],
         )
       end
     end
