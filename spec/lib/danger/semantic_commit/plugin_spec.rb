@@ -20,6 +20,7 @@ RSpec.describe Danger::DangerSemanticCommit do
           [
             ["Commit subject is too short", commit.sha],
             ["Commit is missing a scope", commit.sha],
+            ["Commit is missing a type", commit.sha],
           ],
         )
       end
