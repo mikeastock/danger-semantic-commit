@@ -1,7 +1,9 @@
+require "danger"
+
 module Danger
   # Run each commit in the PR through a message linting.
   #
-  #  Semantic commit lint will check each commit in the PR to ensure the
+  #  Semantic commit lint will validate each commit in the PR to ensure the
   #  following is true:
   #
   #  * Commit subject begins with a type
@@ -13,44 +15,40 @@ module Danger
   #
   # @example Lint all commits using defaults
   #
-  #          semantic_commit.check
+  #          semantic_commit.validate
   #
   # @example Warn instead of fail
   #
-  #          semantic_commit.check warn: :all
+  #          semantic_commit.validate warn: :all
   #
-  # @example Disable a particular check
+  # @example Disable a particular validator
   #
-  #          semantic_commit.check disable: [:length]
+  #          semantic_commit.validate disable: [:length]
   #
   # @example Configure semantic types
   #
-  #          semantic_commit.check types: ["feat", "fix", "docs"]
+  #          semantic_commit.validate types: ["feat", "fix", "docs"]
   #
   # @see danger/danger
   # @tags commit linting
   #
   class DangerSemanticCommit < Plugin
-    def check(config = {})
+    def validate(config = {})
       self.config = config
-      check_commits
+
+      commits.each do |commit|
+        enabled_validators.each do |validator|
+          if !validator.valid?(commit)
+            message = validator.message(commit)
+            messaging.fail [message, commit.fetch(:sha)]
+          end
+        end
+      end
     end
 
     private
 
     attr_accessor :config
-
-    def check_commits
-      commits.each do |commit|
-        validate(commit)
-      end
-    end
-
-    def validate(commit)
-      enabled_checkers.all? do |checker|
-        checker.call(commit)
-      end
-    end
 
     def commits
       git.commits.map do |commit|
@@ -62,17 +60,17 @@ module Danger
       end
     end
 
-    def enabled_checkers
-      checkers.reject do |checker|
-        config.fetch(:disabled, []).include?(checker)
+    def enabled_validators
+      validators.reject do |validator|
+        config.fetch(:disabled, []).include?(validator)
       end
     end
 
-    def checkers
+    def validators
       [
-        Length,
-        Scope,
-        Type,
+        Danger::SemanticCommit::LengthValidator,
+        Danger::SemanticCommit::ScopeValidator,
+        Danger::SemanticCommit::TypeValidator,
       ]
     end
   end

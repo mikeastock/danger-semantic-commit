@@ -1,4 +1,8 @@
-Dir["support/**/*.rb"].each { |f| require f }
+require "bundler/setup"
+
+require_relative "../lib/danger/semantic_commit"
+
+Dir["spec/support/**/*.rb"].each { |f| require File.expand_path(f) }
 
 RSpec.configure do |config|
   config.expect_with :rspec do |expectations|
@@ -6,7 +10,7 @@ RSpec.configure do |config|
   end
 
   config.mock_with :rspec do |mocks|
-    mocks.verify_partial_doubles = true
+    mocks.verify_partial_doubles = false
   end
 
   config.shared_context_metadata_behavior = :apply_to_host_groups
