@@ -7,7 +7,7 @@ RSpec.describe Danger::DangerSemanticCommit do
         plugin = mock_danagerfile.semantic_commit
 
         commit = double(
-          message: "This is not a semantic commit.",
+          message: "This is not a semantic commit." + "way too long" * 100,
           sha: "137e45fe05bfcf0013cab23ff2ab1608fc26e7ac",
         )
 
@@ -18,7 +18,7 @@ RSpec.describe Danger::DangerSemanticCommit do
 
         expect(plugin.status_report[:errors]).to eq(
           [
-            ["Commit subject is too short", commit.sha],
+            ["Commit subject is too long", commit.sha],
             ["Commit is missing a scope", commit.sha],
             ["Commit is missing a type", commit.sha],
           ],

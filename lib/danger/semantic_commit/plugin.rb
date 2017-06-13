@@ -29,6 +29,10 @@ module Danger
   #
   #          semantic_commit.validate types: ["feat", "fix", "docs"]
   #
+  # @example Configure length
+  #
+  #          semantic_commit.validate length: 100
+  #
   # @see danger/danger
   # @tags commit linting
   #
@@ -59,7 +63,7 @@ module Danger
         enabled_validators.each do |validator|
           if !validator.valid?(commit)
             message = validator.message(commit)
-            messaging.fail [message, commit.fetch(:sha)]
+            messaging.fail([message, commit.fetch(:sha)])
           end
         end
       end
@@ -86,10 +90,14 @@ module Danger
     end
 
     def validators
+      @validators ||= build_validators
+    end
+
+    def build_validators
       [
-        Danger::SemanticCommit::LengthValidator,
-        Danger::SemanticCommit::ScopeValidator,
-        Danger::SemanticCommit::TypeValidator,
+        Danger::SemanticCommit::LengthValidator.new(config[:length]),
+        Danger::SemanticCommit::ScopeValidator.new,
+        Danger::SemanticCommit::TypeValidator.new(config[:types]),
       ]
     end
   end

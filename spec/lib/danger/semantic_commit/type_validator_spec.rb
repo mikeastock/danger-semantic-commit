@@ -3,17 +3,14 @@ require "spec_helper"
 module Danger
   module SemanticCommit
     RSpec.describe TypeValidator do
-      describe ".type_from" do
-        it "extracts type from subject" do
-          message = "feat(user-signup): User's can now sign up"
+      describe "#valid?" do
+        context "user specifies type" do
+          it "checks that the type is exists and is valid" do
+            message = "feat(user-signup): User's can now sign up"
+            commit = { subject: message }
 
-          expect(TypeValidator.type_from(message)).to eq("feat")
-        end
-
-        it "returns nil if there is no type" do
-          message = "User's can now sign up"
-
-          expect(TypeValidator.type_from(message)).to be nil
+            expect(TypeValidator.new(["feat"]).valid?(commit)).to be true
+          end
         end
       end
     end

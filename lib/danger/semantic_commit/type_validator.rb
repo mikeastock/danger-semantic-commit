@@ -1,23 +1,31 @@
 module Danger
   module SemanticCommit
     class TypeValidator
-      def self.valid?(commit)
-        subject = commit.fetch(:subject)
-
-        type_from(subject) && default_types.include?(type_from(subject))
+      def initialize(types)
+        @types = types || default_types
       end
 
-      def self.message(_commit)
+      def valid?(commit)
+        subject = commit.fetch(:subject)
+
+        type_from(subject) && types.include?(type_from(subject))
+      end
+
+      def message(_commit)
         "Commit is missing a type"
       end
 
-      def self.type_from(subject)
+      private
+
+      attr_reader :types
+
+      def type_from(subject)
         if matches = subject.match(/^(?<type>\w+)(\(|:)/)
           matches[:type]
         end
       end
 
-      def self.default_types
+      def default_types
         [
           "chore",
           "docs",
