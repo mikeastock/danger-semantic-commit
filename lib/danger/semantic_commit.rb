@@ -1,5 +1,0 @@
-require "danger/semantic_commit/length_validator"
-require "danger/semantic_commit/plugin"
-require "danger/semantic_commit/scope_validator"
-require "danger/semantic_commit/type_validator"
-require "danger/semantic_commit/version"
