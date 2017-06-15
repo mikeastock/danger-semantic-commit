@@ -5,5 +5,8 @@ rvm:
   - 2.2
   - 2.3.3
   - 2.4.1
+
 before_install: gem install bundler -v 1.14.6
-before_script: bundle exec danger
+
+script:
+  - bundle exec danger --verbose
