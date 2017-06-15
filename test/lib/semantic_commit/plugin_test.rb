@@ -27,9 +27,9 @@ class Danger::DangerSemanticCommitTest < Minitest::Test
     assert_equal(
       plugin.status_report[:errors],
       [
-        ["Commit subject is too long", commit.sha],
-        ["Commit is missing a scope", commit.sha],
-        ["Commit is missing a type", commit.sha],
+        ["Commit subject is too long", commit.sha].join("\n"),
+        ["Commit is missing a scope", commit.sha].join("\n"),
+        ["Commit is missing a type", commit.sha].join("\n"),
       ],
     )
   end
