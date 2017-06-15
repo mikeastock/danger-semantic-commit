@@ -7,7 +7,6 @@ module Danger
   #  following is true:
   #
   #  * Commit subject begins with a type
-  #  * Commit subject has a scope (`scope`)
   #  * Commit subject is no longer than 70 characters (`length`)
   #
   #  By default, Semantic Commit Lint fails, but you can configure this behavior.
@@ -47,7 +46,6 @@ module Danger
     #
     #  The current check types are:
     #
-    #  * `scope`
     #  * `length`
     #
     #  Note: you can pass :all instead of an array to target all checks.
@@ -96,7 +94,6 @@ module Danger
     def build_validators
       [
         Danger::SemanticCommit::LengthValidator.new(config[:length]),
-        Danger::SemanticCommit::ScopeValidator.new,
         Danger::SemanticCommit::TypeValidator.new(config[:types]),
       ]
     end
