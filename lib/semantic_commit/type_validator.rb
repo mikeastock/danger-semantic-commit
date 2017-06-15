@@ -12,7 +12,12 @@ module Danger
       end
 
       def message(_commit)
-        "Commit is missing a type"
+        <<~MSG
+          Commit is missing a type.  Start your commit with one of the following:
+          #{types.join(',')}
+
+          For more information see: http://karma-runner.github.io/1.0/dev/git-commit-msg.html
+        MSG
       end
 
       private

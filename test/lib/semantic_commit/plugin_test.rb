@@ -24,12 +24,18 @@ class Danger::DangerSemanticCommitTest < Minitest::Test
     plugin.commit = commit
     plugin.validate
 
+    type_message = <<~MSG
+      Commit is missing a type.  Start your commit with one of the following:
+      chore,docs,feat,fix,refactor,style,test
+
+      For more information see: http://karma-runner.github.io/1.0/dev/git-commit-msg.html
+    MSG
+
     assert_equal(
       plugin.status_report[:errors],
       [
         ["Commit subject is too long", commit.sha].join("\n"),
-        ["Commit is missing a scope", commit.sha].join("\n"),
-        ["Commit is missing a type", commit.sha].join("\n"),
+        [type_message, commit.sha].join("\n"),
       ],
     )
   end
