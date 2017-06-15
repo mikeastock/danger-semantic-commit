@@ -36,12 +36,8 @@ module MockDanger
   end
 
   # A stubbed out Dangerfile for use in tests
-  def testing_dangerfile
+  def mock_danagerfile
     env = Danger::EnvironmentManager.new(testing_env)
     Danger::Dangerfile.new(env, testing_ui)
   end
-end
-
-RSpec.configure do |config|
-  config.include MockDanger
 end
