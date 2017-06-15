@@ -16,7 +16,7 @@ module Danger
           Commit is missing a type.  Start your commit with one of the following:
           #{types.join(',')}
 
-          For more information see: http://karma-runner.github.io/1.0/dev/git-commit-msg.html
+          For more information see: [http://karma-runner.github.io/1.0/dev/git-commit-msg.html](http://karma-runner.github.io/1.0/dev/git-commit-msg.html)
         MSG
       end
 
