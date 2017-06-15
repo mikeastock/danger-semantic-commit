@@ -63,7 +63,7 @@ module Danger
         enabled_validators.each do |validator|
           if !validator.valid?(commit)
             message = validator.message(commit)
-            messaging.fail([message, commit.fetch(:sha)])
+            messaging.fail([message, commit.fetch(:sha)].join("\n"))
           end
         end
       end
